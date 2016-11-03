@@ -1,0 +1,68 @@
+/*
+.contacts {
+  width                    : 300px;
+  margin                   : 0 auto;
+}
+
+.search-field {
+  width                    : 100%;
+  padding                  : 10px;
+  font-size                : 16px;
+}
+
+.contacts-list {
+  padding                  : 0;
+  width                    : 100%;
+}
+
+.contact {
+  display                  : flex;
+  align-items              : center;
+  font-family              : sans-serif;
+  width                    : 100%;
+  padding                  : 5px;
+  border-bottom            : 1px dotted grey;
+}
+
+.contact-image {
+    border-radius          : 50%;
+    margin                 : 5px;
+}
+
+.contact-name {
+  font-size                : 20px;
+  font-weight              : bold;
+}
+
+.contact-number {
+  font-size                : 18px;
+  color                    : grey;
+}
+*/
+/*============================*/
+
+* {
+    box-sizing             : border-box;
+}
+
+body {
+    font-family            : sans-serif;
+    font-weight            : 300;
+    background-color       : #eaeaea;
+}
+
+#mount-point {
+    display                : -webkit-box;
+    display                : -webkit-flex;
+    display                : -ms-flexbox;
+    display                : flex;
+    -webkit-box-orient     : vertical;
+    -webkit-box-direction  : normal;
+    -webkit-flex-direction : column;
+        -ms-flex-direction : column;
+            flex-direction : column;
+    -webkit-box-align      : center;
+    -webkit-align-items    : center;
+        -ms-flex-align     : center;
+            align-items    : center;
+}
