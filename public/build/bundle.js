@@ -20267,29 +20267,43 @@
 
 	var React = __webpack_require__(1);
 	var Color = __webpack_require__(166);
-	var colors = [{ id: 1, color: '#ff897d' }, { id: 2, color: '#ffd27a' }, { id: 3, color: '#ffff85' }, { id: 4, color: '#cfd8dc' }, { id: 5, color: '#7cd7ff' }, { id: 6, color: '#a4ffeb' }, { id: 7, color: '#cbff8a' }, { id: 8, color: '#f4f4f4' }];
+	var colors = [{
+	    id: 1,
+	    color: '#ff897d'
+	}, {
+	    id: 2,
+	    color: '#ffd27a'
+	}, {
+	    id: 3,
+	    color: '#ffff85'
+	}, {
+	    id: 4,
+	    color: '#cfd8dc'
+	}, {
+	    id: 5,
+	    color: '#7cd7ff'
+	}, {
+	    id: 6,
+	    color: '#a4ffeb'
+	}, {
+	    id: 7,
+	    color: '#cbff8a'
+	}, {
+	    id: 8,
+	    color: '#f4f4f4'
+	}];
 	var NoteColors = React.createClass({
 	    displayName: 'NoteColors',
 
 	    getInitialState: function getInitialState() {
-	        return {
-	            selectColor: colors,
-	            arrClass: 'arr',
-	            selectClass: 'selectColor'
-	        };
+	        return { selectColor: colors, arrClass: 'arr', selectClass: 'selectColor' };
 	    },
 
 	    handleShowColors: function handleShowColors() {
 	        if (this.state.arrClass == 'arr') {
-	            this.setState({
-	                arrClass: 'arr show',
-	                selectClass: 'selectColor showed'
-	            });
+	            this.setState({ arrClass: 'arr show', selectClass: 'selectColor showed' });
 	        } else {
-	            this.setState({
-	                arrClass: 'arr',
-	                selectClass: 'selectColor'
-	            });
+	            this.setState({ arrClass: 'arr', selectClass: 'selectColor' });
 	        }
 	    },
 
@@ -20297,29 +20311,30 @@
 	        var onColorSelect = this.props.onColorSelect;
 	        return React.createElement(
 	            'div',
-	            { className: this.state.selectClass },
-	            this.state.selectColor.map(function (color) {
-	                var style = { backgroundColor: color.color };
-	                var activity = localStorage.getItem('color') == color.color ? 'active' : '';
-	                return React.createElement(Color, {
-	                    onColor: onColorSelect.bind(null, color),
-	                    key: color.id,
-	                    colorStyle: style,
-	                    clss: activity
-	                });
-	            }),
+	            null,
 	            React.createElement(
 	                'div',
 	                { className: this.state.arrClass, onClick: this.handleShowColors },
 	                React.createElement('span', { className: 'menu_line line1' }),
 	                React.createElement('span', { className: 'menu_line line3' })
 	            ),
-	            React.createElement('div', { className: 'clear' })
+	            React.createElement(
+	                'div',
+	                { className: this.state.selectClass, onClick: this.handleShowColors },
+	                this.state.selectColor.map(function (color) {
+	                    var style = {
+	                        backgroundColor: color.color
+	                    };
+	                    var activity = localStorage.getItem('color') == color.color ? 'color active' : 'color';
+	                    return React.createElement(Color, { onColor: onColorSelect.bind(null, color), key: color.id, colorStyle: style, clss: activity });
+	                })
+	            )
 	        );
 	    }
 	});
 
 	module.exports = NoteColors;
+	/* <div className="clear"></div> */
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\User\\Desktop\\#Расширения\\React\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "NotesColors.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -20381,7 +20396,7 @@
 
 
 	// module
-	exports.push([module.id, ".selectColor {\n  position: absolute;\n  margin: -66px 0 0 200px;\n  padding: 7px 0 0 30px;\n  background: rgba(0, 0, 0, 0.47);\n  border-radius: 10px;\n  height: 34px;\n}\n.selectColor div {\n  float: left;\n  padding: 5px;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  position: relative;\n  opacity: 0;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  z-index: 1;\n}\n.selectColor div:hover,\n.selectColor div.active {\n  cursor: pointer;\n  opacity: 1;\n  z-index: 9999;\n}\n.selectColor div:not(.arr):nth-child(1) {\n  margin-left: -20px;\n}\n.selectColor div:not(.arr):nth-child(2) {\n  margin-left: -20px;\n}\n.selectColor div:not(.arr):nth-child(3) {\n  margin-left: -20px;\n}\n.selectColor div:not(.arr):nth-child(4) {\n  margin-left: -20px;\n}\n.selectColor div:not(.arr):nth-child(5) {\n  margin-left: -20px;\n}\n.selectColor div:not(.arr):nth-child(6) {\n  margin-left: -20px;\n}\n.selectColor div:not(.arr):nth-child(7) {\n  margin-left: -20px;\n}\n.selectColor div:not(.arr):nth-child(8) {\n  margin-left: -20px;\n}\n.showed {\n  padding: 7px;\n}\n.showed div {\n  opacity: .5;\n  margin-left: 3px !important;\n}\n.arr {\n  opacity: .5 !important;\n  margin: 2px 0 -2px -3px !important;\n}\n.menu_line {\n  display: block;\n  width: 100%;\n  height: 2px;\n  background-color: #fff;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n}\n.line1 {\n  -webkit-transform: rotateZ(45deg);\n          transform: rotateZ(45deg);\n}\n.line3 {\n  -webkit-transform: rotateZ(-45deg);\n          transform: rotateZ(-45deg);\n  margin: 4px 0 0 0px;\n}\n.show .line1 {\n  -webkit-transform: rotateZ(135deg);\n          transform: rotateZ(135deg);\n}\n.show .line3 {\n  -webkit-transform: rotateZ(-135deg);\n          transform: rotateZ(-135deg);\n}\n.clear {\n  clear: both;\n}\n", ""]);
+	exports.push([module.id, ".selectColor {\n  position: absolute;\n  margin: -63px 0 0 200px;\n  padding: 7px 8px 0 28px;\n  background: rgba(0, 0, 0, 0.47);\n  border-radius: 10px;\n  height: 34px;\n}\n.selectColor .color {\n  float: left;\n  padding: 5px;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  position: relative;\n  opacity: 0;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  z-index: 1;\n  margin-left: -20px;\n}\n.selectColor .color.active,\n.selectColor .color:hover {\n  cursor: pointer;\n  opacity: 1;\n  z-index: 9;\n}\n.arr {\n  float: left;\n  padding: 5px;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  position: relative;\n  opacity: 0;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  z-index: 1;\n  margin-left: -20px;\n  opacity: 0.5;\n  margin: -55px 0 0 208px;\n  position: absolute;\n}\n.arr.active,\n.arr:hover {\n  cursor: pointer;\n  opacity: 1;\n  z-index: 9;\n}\n.arr:hover {\n  cursor: pointer;\n  opacity: 1 !important;\n}\n.showed .color {\n  opacity: 0.5;\n  margin-left: 3px !important;\n}\n.menu_line {\n  display: block;\n  width: 100%;\n  height: 2px;\n  background-color: #fff;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n}\n.line1 {\n  -webkit-transform: rotateZ(45deg);\n          transform: rotateZ(45deg);\n}\n.line3 {\n  -webkit-transform: rotateZ(-45deg);\n          transform: rotateZ(-45deg);\n  margin: 4px 0 0;\n}\n.show .line1 {\n  -webkit-transform: rotateZ(135deg);\n          transform: rotateZ(135deg);\n}\n.show .line3 {\n  -webkit-transform: rotateZ(-135deg);\n          transform: rotateZ(-135deg);\n}\n", ""]);
 
 	// exports
 
