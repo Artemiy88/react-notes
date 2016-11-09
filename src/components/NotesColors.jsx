@@ -1,7 +1,6 @@
 import {colors} from '../config';
-
-var React = require('react');
-var Color = require('./Color.jsx');
+import React from 'react';
+import Color from './Color.jsx';
 
 var NoteColors = React.createClass({
     getInitialState: function() {

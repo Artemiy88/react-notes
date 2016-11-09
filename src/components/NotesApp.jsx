@@ -1,11 +1,9 @@
 import {colors} from '../config';
-
-var React = require('react');
-var NoteEditor = require('./NoteEditor.jsx');
-var NoteColors = require('./NotesColors.jsx');
-var NotesGrid = require('./NotesGrid.jsx');
-
-require('./NotesApp.css');
+import React from 'react';
+import NoteEditor from './NoteEditor.jsx';
+import NoteColors from './NotesColors.jsx';
+import NotesGrid from './NotesGrid.jsx';
+import './NotesApp.css';
 
 var NotesApp = React.createClass({
     getInitialState: function() {
@@ -53,6 +51,7 @@ var NotesApp = React.createClass({
                 <NoteEditor onNoteAdd={this.handleNoteAdd} color={this.state.color}/>
                 <NoteColors onColorSelect={this.handleColorSelect}/>
                 <NotesGrid onNoteDelete={this.handleNoteDelete} notes={this.state.notes}/>
+                {this.props.children}
             </div>
         );
     },
