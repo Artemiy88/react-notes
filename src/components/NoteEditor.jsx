@@ -1,6 +1,5 @@
-var React = require('react');
-
-require('./NoteEditor.css');
+import React from 'react';
+import './NoteEditor.css';
 
 var NoteEditor = React.createClass({
     getInitialState: function() {
@@ -14,7 +13,7 @@ var NoteEditor = React.createClass({
         this.setState({
             text : event.target.value
         });
-        
+
         if( event.target.value.length > 0 ){
             this.setState({ showButton: 'add-button active'});
         }else{

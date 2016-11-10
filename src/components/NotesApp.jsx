@@ -1,33 +1,19 @@
-var React      = require('react');
-var NoteEditor = require('./NoteEditor.jsx');
-var NoteColors = require('./NotesColors.jsx');
-var NotesGrid  = require('./NotesGrid.jsx');
-//import colors from (../config.js);
-var colors = [
-  {id: 1, color: '#ff897d'},
-  {id: 2, color: '#ffd27a'},
-  {id: 3, color: '#ffff85'},
-  {id: 4, color: '#cfd8dc'},
-  {id: 5, color: '#7cd7ff'},
-  {id: 6, color: '#a4ffeb'},
-  {id: 7, color: '#cbff8a'},
-  {id: 8, color: '#f4f4f4'}
-];
-require('./NotesApp.css');
-
+import {colors} from '../config';
+import React from 'react';
+import NoteEditor from './NoteEditor.jsx';
+import NoteColors from './NotesColors.jsx';
+import NotesGrid from './NotesGrid.jsx';
+import './NotesApp.css';
 
 var NotesApp = React.createClass({
     getInitialState: function() {
-        return {
-            notes: [],
-            color:''
-        };
+        return {notes: [], color: ''};
     },
 
     componentDidMount: function() {
         var localNotes = JSON.parse(localStorage.getItem('notes'));
         if (localNotes) {
-            this.setState({ notes: localNotes });
+            this.setState({notes: localNotes});
         }
     },
 
@@ -40,21 +26,21 @@ var NotesApp = React.createClass({
         var newNotes = this.state.notes.filter(function(note) {
             return note.id !== noteId;
         });
-        this.setState({ notes: newNotes });
+        this.setState({notes: newNotes});
     },
 
     handleNoteAdd: function(newNote) {
         var newNotes = this.state.notes.slice();
         newNotes.unshift(newNote);
-        this.setState({ notes: newNotes });
+        this.setState({notes: newNotes});
     },
 
-    handleColorSelect: function(color){
+    handleColorSelect: function(color) {
         this._updateColorLocalStorage(color.color);
-        this.setState({ color: color.color });
-        colors.map( function(el){
+        this.setState({color: color.color});
+        colors.map(function(el) {
             el['class'] = '';
-        } );
+        });
         color['class'] = "active";
     },
 
@@ -62,9 +48,10 @@ var NotesApp = React.createClass({
         return (
             <div className="notes-app">
                 <h2 className="app-header">Заметоньки</h2>
-                <NoteEditor onNoteAdd     = {this.handleNoteAdd} color = {this.state.color} />
-                <NoteColors onColorSelect = {this.handleColorSelect} />
-                <NotesGrid  onNoteDelete  = {this.handleNoteDelete} notes = {this.state.notes} />
+                <NoteEditor onNoteAdd={this.handleNoteAdd} color={this.state.color}/>
+                <NoteColors onColorSelect={this.handleColorSelect}/>
+                <NotesGrid onNoteDelete={this.handleNoteDelete} notes={this.state.notes}/>
+                {this.props.children}
             </div>
         );
     },
@@ -74,7 +61,7 @@ var NotesApp = React.createClass({
         localStorage.setItem('notes', notes);
     },
 
-    _updateColorLocalStorage: function(color){
+    _updateColorLocalStorage: function(color) {
         localStorage.setItem('color', color);
     }
 });

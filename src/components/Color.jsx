@@ -1,5 +1,5 @@
-var React = require('react');
-require('./Color.less');
+import React from 'react';
+import './Color.less';
 
 var Color = React.createClass({
     render: function() {

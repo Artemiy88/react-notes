@@ -1,33 +1,37 @@
-@3s: all 0.3s;
-@45deg: rotateZ(45deg);
-@135deg: rotateZ(135deg);
-@m45deg: rotateZ(-45deg);
+@3s     : all 0.3s;
+@45deg  : rotateZ(45deg);
+@135deg : rotateZ(135deg);
+@m45deg : rotateZ(-45deg);
 @m135deg: rotateZ(-135deg);
-@radius: 20px;
+@radius : 20px;
 
 .selectColor {
-    position: absolute;
-    margin: -63px 0 0 200px;
-    padding: 7px 8px 0 28px;
-    background: rgba(0, 0, 0, 0.47);
+    position     : absolute;
+    margin       : -63px 0 0 200px;
+    padding      : 7px 8px 0 28px;
+    background   : rgba(0, 0, 0, 0.47);
     border-radius: 10px;
-    height: 34px;
-
+    height       : 34px;
+    &.showed {
+        .color {
+            opacity    : 0.5;
+            margin-left: 3px;
+        }
+    }
     .color {
-        float: left;
-        padding: 5px;
-        width: @radius;
-        height: @radius;
+        float        : left;
+        padding      : 5px;
+        width        : @radius;
+        height       : @radius;
         border-radius: 50%;
-        position: relative;
-        opacity: 0;
-        transition: @3s;
-        z-index: 1;
-        margin-left: -20px;
-
+        position     : relative;
+        opacity      : 0;
+        transition   : @3s;
+        z-index      : 1;
+        margin-left  : -20px;
         &.active,
         &:hover {
-            cursor: pointer;
+            cursor : pointer;
             opacity: 1;
             z-index: 9;
         }
@@ -36,48 +40,32 @@
 
 .arr {
     .selectColor .color;
-    opacity : 0.5;
     margin  : -55px 0 0 208px;
-    position: absolute;
-
-    &:hover {
-        cursor: pointer;
-        opacity: 1 !important;
-    }
-}
-
-
-.showed {
-    //    padding : 7px;
-    .color {
+    &.show {
         opacity: 0.5;
-        margin-left: 3px !important;
+        &:hover {
+            cursor : pointer;
+            opacity: 1;
+        }
+        .line1 {
+            transform: @135deg;
+        }
+        .line3 {
+            transform: @m135deg;
+        }
     }
-}
-
-.menu_line {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: #fff;
-    transition: @3s;
-}
-
-.line1 {
-    transform: @45deg;
-}
-
-.line3 {
-    transform: @m45deg;
-    margin: 4px 0 0;
-}
-
-.show {
+    .menu_line {
+        display         : block;
+        width           : 100%;
+        height          : 2px;
+        background-color: #fff;
+        transition      : @3s;
+    }
     .line1 {
-        transform: @135deg;
+        transform: @45deg;
     }
-
     .line3 {
-        transform: @m135deg;
+        transform: @m45deg;
+        margin   : 4px 0 0;
     }
 }

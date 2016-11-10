@@ -1,7 +1,6 @@
-var React = require('react');
-var Note  = require('./Note.jsx');
-
-require('./NotesGrid.css');
+import React from 'react';
+import Note  from './Note.jsx';
+import './NotesGrid.css';
 
 var NotesGrid = React.createClass({
     componentDidMount: function() {
