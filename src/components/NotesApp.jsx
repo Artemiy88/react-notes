@@ -46,13 +46,24 @@ var NotesApp = React.createClass({
         color['class'] = "active";
     },
 
+    handleNotesFiltr: function(event){
+        let notes = this.state.notes;
+		let searchQuery = event.target.value.toLowerCase();
+		var displayedContacts = notes.filter(function(el) {
+			let searchValue = el.text.toLowerCase();
+			return searchValue.indexOf(searchQuery) !== -1;
+		});
+
+        this.setState({notes: displayedContacts});
+    },
+
     render: function() {
         return (
             <div className="notes-app">
                 <h2 className="app-header">Заметоньки</h2>
                 <NoteEditor onNoteAdd={this.handleNoteAdd} color={this.state.color} />
                 <NoteColors onColorSelect={this.handleColorSelect} />
-                <Search notes={this.state.notes} />
+                <Search     onSearchText={this.handleNotesFiltr} notes={this.state.notes} />
                 <NotesGrid  onNoteDelete={this.handleNoteDelete} notes={this.state.notes} />
             </div>
         );
