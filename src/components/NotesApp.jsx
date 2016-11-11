@@ -1,8 +1,10 @@
-import {colors} from '../config';
-import React from 'react';
+import React      from 'react';
 import NoteEditor from './NoteEditor.jsx';
 import NoteColors from './NotesColors.jsx';
-import NotesGrid from './NotesGrid.jsx';
+import NotesGrid  from './NotesGrid.jsx';
+import Search     from './Search.jsx';
+import { Link }   from 'react-router';
+import {colors}   from '../config';
 import './NotesApp.css';
 
 var NotesApp = React.createClass({
@@ -48,10 +50,10 @@ var NotesApp = React.createClass({
         return (
             <div className="notes-app">
                 <h2 className="app-header">Заметоньки</h2>
-                <NoteEditor onNoteAdd={this.handleNoteAdd} color={this.state.color}/>
-                <NoteColors onColorSelect={this.handleColorSelect}/>
-                <NotesGrid onNoteDelete={this.handleNoteDelete} notes={this.state.notes}/>
-                {this.props.children}
+                <NoteEditor onNoteAdd={this.handleNoteAdd} color={this.state.color} />
+                <NoteColors onColorSelect={this.handleColorSelect} />
+                <Search notes={this.state.notes} />
+                <NotesGrid  onNoteDelete={this.handleNoteDelete} notes={this.state.notes} />
             </div>
         );
     },
