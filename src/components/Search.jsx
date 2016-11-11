@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import './Search.less';
 
-export default class Search extends Component {
+var Search = React.createClass({
 
-	handleSearch(event){
+	handleSearch: function(event){
 		var notes = this.props.notes;
 		var searchQuery = event.target.value.toLowerCase();
 		var displayedContacts = notes.filter(function(el) {
-			var searchValue = el.name.toLowerCase();
+			var searchValue = el.text.toLowerCase();
 			return searchValue.indexOf(searchQuery) !== -1;
 		});
 
 		this.setState({
 			displayedContacts: displayedContacts
 		});
-	}
+	},
 
     render() {
         return (
@@ -23,4 +23,6 @@ export default class Search extends Component {
 			</div>
         )
     }
-}
+})
+
+module.exports = Search;
