@@ -29,12 +29,12 @@ var NoteColors = React.createClass({
                             backgroundColor: color.color
                         };
                         let activity = (localStorage.getItem('color') == color.color)
-                            ? 'color active'
-                            : 'color';
-                        return (<Color onColor={onColorSelect.bind(null, color)} key={color.id} colorStyle={style} clss={activity}/>);
+                        ? 'color active'
+                        : 'color';
+                            return (<Color onColor={onColorSelect.bind(null, color)} key={color.id} colorStyle={style} clss={activity}/>);
                     })
-}
-                    {/* <div className="clear"></div> */}
+                    }
+
                 </div>
             </div>
         );
