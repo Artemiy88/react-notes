@@ -9,18 +9,15 @@ import './NotesApp.css';
 
 var NotesApp = React.createClass({
     getInitialState: function() {
-        return {notes: [], color: ''};
-    },
-
-    componentDidMount: function() {
         var localNotes = JSON.parse(localStorage.getItem('notes'));
-        if (localNotes) {
-            this.setState({notes: localNotes});
-        }
+        return {
+             notes: localNotes,
+             color: ''
+         };
     },
 
     componentDidUpdate: function() {
-        this._updateLocalStorage();
+        this._updateLocalStorage(); // из-за этого удаляет при фильтрации
     },
 
     handleNoteDelete: function(note) {
@@ -35,6 +32,7 @@ var NotesApp = React.createClass({
         var newNotes = this.state.notes.slice();
         newNotes.unshift(newNote);
         this.setState({notes: newNotes});
+        var notes = JSON.stringify(this.state.notes);
     },
 
     handleColorSelect: function(color) {
@@ -49,7 +47,7 @@ var NotesApp = React.createClass({
     handleNotesFiltr: function(event){
         let notes = this.state.notes;
 		let searchQuery = event.target.value.toLowerCase();
-		var displayedContacts = notes.filter(function(el) {
+		let displayedContacts = localNotes.filter(function(el) {
 			let searchValue = el.text.toLowerCase();
 			return searchValue.indexOf(searchQuery) !== -1;
 		});
@@ -63,7 +61,7 @@ var NotesApp = React.createClass({
                 <h2 className="app-header">Заметоньки</h2>
                 <NoteEditor onNoteAdd={this.handleNoteAdd} color={this.state.color} />
                 <NoteColors onColorSelect={this.handleColorSelect} />
-                <Search     onSearchText={this.handleNotesFiltr} notes={this.state.notes} />
+                <Search     onSearchText={this.handleNotesFiltr} />
                 <NotesGrid  onNoteDelete={this.handleNoteDelete} notes={this.state.notes} />
             </div>
         );
