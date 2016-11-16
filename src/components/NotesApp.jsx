@@ -5,7 +5,7 @@ import NotesGrid  from './NotesGrid.jsx';
 import Search     from './Search.jsx';
 import { Link }   from 'react-router';
 import {colors}   from '../config';
-import './NotesApp.css';
+import './NotesApp.less';
 
 var NotesApp = React.createClass({
     getInitialState: function() {

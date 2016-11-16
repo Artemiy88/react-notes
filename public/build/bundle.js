@@ -27141,10 +27141,6 @@
 
 	var _NotesAppJsx2 = _interopRequireDefault(_NotesAppJsx);
 
-	var _SearchJsx = __webpack_require__(255);
-
-	var _SearchJsx2 = _interopRequireDefault(_SearchJsx);
-
 	var _NavLinkJsx = __webpack_require__(260);
 
 	var _NavLinkJsx2 = _interopRequireDefault(_NavLinkJsx);
@@ -27184,11 +27180,6 @@
 	                            { to: '/edit' },
 	                            'Редактор'
 	                        )
-	                    ),
-	                    _react2['default'].createElement(
-	                        'div',
-	                        null,
-	                        _react2['default'].createElement(_SearchJsx2['default'], null)
 	                    )
 	                ),
 	                this.props.children
@@ -27592,18 +27583,15 @@
 	    displayName: 'NotesApp',
 
 	    getInitialState: function getInitialState() {
-	        return { notes: [], color: '' };
-	    },
-
-	    componentDidMount: function componentDidMount() {
 	        var localNotes = JSON.parse(localStorage.getItem('notes'));
-	        if (localNotes) {
-	            this.setState({ notes: localNotes });
-	        }
+	        return {
+	            notes: localNotes,
+	            color: ''
+	        };
 	    },
 
 	    componentDidUpdate: function componentDidUpdate() {
-	        this._updateLocalStorage();
+	        this._updateLocalStorage(); // из-за этого удаляет при фильтрации
 	    },
 
 	    handleNoteDelete: function handleNoteDelete(note) {
@@ -27618,6 +27606,7 @@
 	        var newNotes = this.state.notes.slice();
 	        newNotes.unshift(newNote);
 	        this.setState({ notes: newNotes });
+	        var notes = JSON.stringify(this.state.notes);
 	    },
 
 	    handleColorSelect: function handleColorSelect(color) {
@@ -27627,6 +27616,17 @@
 	            el['class'] = '';
 	        });
 	        color['class'] = "active";
+	    },
+
+	    handleNotesFiltr: function handleNotesFiltr(event) {
+	        var notes = this.state.notes;
+	        var searchQuery = event.target.value.toLowerCase();
+	        var displayedContacts = localNotes.filter(function (el) {
+	            var searchValue = el.text.toLowerCase();
+	            return searchValue.indexOf(searchQuery) !== -1;
+	        });
+
+	        this.setState({ notes: displayedContacts });
 	    },
 
 	    render: function render() {
@@ -27640,6 +27640,7 @@
 	            ),
 	            _react2['default'].createElement(_NoteEditorJsx2['default'], { onNoteAdd: this.handleNoteAdd, color: this.state.color }),
 	            _react2['default'].createElement(_NotesColorsJsx2['default'], { onColorSelect: this.handleColorSelect }),
+	            _react2['default'].createElement(_SearchJsx2['default'], { onSearchText: this.handleNotesFiltr }),
 	            _react2['default'].createElement(_NotesGridJsx2['default'], { onNoteDelete: this.handleNoteDelete, notes: this.state.notes })
 	        );
 	    },
@@ -27769,7 +27770,7 @@
 
 
 	// module
-	exports.push([module.id, ".note-editor {\r\n    width                  : 100%;\r\n    max-width              : 600px;\r\n    padding                : 16px;\r\n    margin                 : 16px auto;\r\n    background-color       : white;\r\n    box-shadow             : 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);\r\n    border-radius          : 2px;\r\n    display                : -webkit-box;\r\n    display                : -ms-flexbox;\r\n    display                : flex;\r\n    -webkit-box-orient     : vertical;\r\n    -webkit-box-direction  : normal;\r\n    -ms-flex-direction     : column;\r\n    flex-direction         : column;\r\n}\r\n\r\n.textarea {\r\n    width                  : 100%;\r\n    resize                 : none;\r\n    margin                 : 5px;\r\n    font-size              : 14px;\r\n    border                 : none;\r\n    font-weight            : 300;\r\n}\r\n\r\n.textarea                  :focus {\r\n    outline                : 0;\r\n}\r\n\r\n.add-button {\r\n    -webkit-align-self     : flex-end;\r\n    -ms-flex-item-align    : end;\r\n    align-self             : flex-end;\r\n    width                  : 100px;\r\n    background-color       :#44c767;\r\n    border-radius          :28px;\r\n    border                 :1px solid #18ab29;\r\n    cursor                 :pointer;\r\n    color                  :#ffffff;\r\n    font-size              :14px;\r\n    padding                :8px 8px;\r\n    text-transform         : uppercase;\r\n    text-decoration        :none;\r\n    text-shadow            :0px 1px 0px #2f6627;\r\n    -webkit-transition                  : all .3s;\r\n    transition             :all .3s;\r\n}\r\n.add-button:not(.active) {\r\n    opacity                : 0;\r\n    cursor                 : default;\r\n}\r\n\r\n.add-button.active:hover {\r\n    background-color       :#5cbf2a;\r\n}\r\n\r\n.add-button:active {\r\n    position               :relative;\r\n    top                    :1px;\r\n}\r\n\r\n.add-button:focus {\r\n    outline                : 0;\r\n}\r\n", ""]);
+	exports.push([module.id, ".note-editor {\r\n    width                  : 100%;\r\n    max-width              : 600px;\r\n    padding                : 16px;\r\n    margin                 : 16px auto;\r\n    background-color       : white;\r\n    box-shadow             : 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);\r\n    border-radius          : 2px;\r\n    display                : -webkit-box;\r\n    display                : -ms-flexbox;\r\n    display                : flex;\r\n    -webkit-box-orient     : vertical;\r\n    -webkit-box-direction  : normal;\r\n    -ms-flex-direction     : column;\r\n    flex-direction         : column;\r\n}\r\n\r\n.textarea {\r\n    width                  : 100%;\r\n    resize                 : none;\r\n    margin                 : 5px;\r\n    font-size              : 14px;\r\n    border                 : none;\r\n    font-weight            : 300;\r\n}\r\n.textarea:focus {\r\n    outline: none !important;\r\n//    border:2px solid #000;\r\n//    box-shadow: 0 0 10px #000;\r\n}\r\n\r\n.textarea                  :focus {\r\n    outline                : 0;\r\n}\r\n\r\n.add-button {\r\n    -webkit-align-self     : flex-end;\r\n    -ms-flex-item-align    : end;\r\n    align-self             : flex-end;\r\n    width                  : 100px;\r\n    background-color       :#44c767;\r\n    border-radius          :28px;\r\n    border                 :1px solid #18ab29;\r\n    cursor                 :pointer;\r\n    color                  :#ffffff;\r\n    font-size              :14px;\r\n    padding                :8px 8px;\r\n    text-transform         : uppercase;\r\n    text-decoration        :none;\r\n    text-shadow            :0px 1px 0px #2f6627;\r\n    -webkit-transition                  : all .3s;\r\n    transition             :all .3s;\r\n}\r\n.add-button:not(.active) {\r\n    opacity                : 0;\r\n    cursor                 : default;\r\n}\r\n\r\n.add-button.active:hover {\r\n    background-color       :#5cbf2a;\r\n}\r\n\r\n.add-button:active {\r\n    position               :relative;\r\n    top                    :1px;\r\n}\r\n\r\n.add-button:focus {\r\n    outline                : 0;\r\n}\r\n", ""]);
 
 	// exports
 
@@ -27836,7 +27837,6 @@
 	});
 
 	module.exports = NoteColors;
-	/* <div className="clear"></div> */
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\User\\Desktop\\#Расширения\\React\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "NotesColors.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -27916,7 +27916,7 @@
 
 
 	// module
-	exports.push([module.id, ".selectColor {\n  position: absolute;\n  margin: -63px 0 0 200px;\n  padding: 7px 8px 0 28px;\n  background: rgba(0, 0, 0, 0.47);\n  border-radius: 10px;\n  height: 34px;\n}\n.selectColor.showed .color {\n  opacity: 0.5;\n  margin-left: 3px;\n}\n.selectColor .color {\n  float: left;\n  padding: 5px;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  position: relative;\n  opacity: 0;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  z-index: 1;\n  margin-left: -20px;\n}\n.selectColor .color.active,\n.selectColor .color:hover {\n  cursor: pointer;\n  opacity: 1;\n  z-index: 9;\n}\n.arr {\n  float: left;\n  padding: 5px;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  position: relative;\n  opacity: 0;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  z-index: 1;\n  margin-left: -20px;\n  margin: -55px 0 0 208px;\n}\n.arr.active,\n.arr:hover {\n  cursor: pointer;\n  opacity: 1;\n  z-index: 9;\n}\n.arr.show {\n  opacity: 0.5;\n}\n.arr.show:hover {\n  cursor: pointer;\n  opacity: 1;\n}\n.arr.show .line1 {\n  -webkit-transform: rotateZ(135deg);\n          transform: rotateZ(135deg);\n}\n.arr.show .line3 {\n  -webkit-transform: rotateZ(-135deg);\n          transform: rotateZ(-135deg);\n}\n.arr .menu_line {\n  display: block;\n  width: 100%;\n  height: 2px;\n  background-color: #fff;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n}\n.arr .line1 {\n  -webkit-transform: rotateZ(45deg);\n          transform: rotateZ(45deg);\n}\n.arr .line3 {\n  -webkit-transform: rotateZ(-45deg);\n          transform: rotateZ(-45deg);\n  margin: 4px 0 0;\n}\n", ""]);
+	exports.push([module.id, ".selectColor {\n  position: absolute;\n  margin: -65px 0 0 200px;\n  padding: 7px 8px 0 28px;\n  background: rgba(0, 0, 0, 0.47);\n  border-radius: 10px;\n  height: 34px;\n}\n.selectColor.showed .color {\n  opacity: 0.5;\n  margin-left: 3px;\n}\n.selectColor .color {\n  float: left;\n  padding: 5px;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  position: relative;\n  opacity: 0;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  z-index: 1;\n  margin-left: -20px;\n}\n.selectColor .color.active,\n.selectColor .color:hover {\n  cursor: pointer;\n  opacity: 1;\n  z-index: 9;\n}\n.arr {\n  float: left;\n  padding: 5px;\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  position: relative;\n  opacity: 0;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n  z-index: 1;\n  margin-left: -20px;\n  margin: -55px 0 0 208px;\n}\n.arr.active,\n.arr:hover {\n  cursor: pointer;\n  opacity: 1;\n  z-index: 9;\n}\n.arr.show {\n  opacity: 0.5;\n}\n.arr.show:hover {\n  cursor: pointer;\n  opacity: 1;\n}\n.arr.show .line1 {\n  -webkit-transform: rotateZ(135deg);\n          transform: rotateZ(135deg);\n}\n.arr.show .line3 {\n  -webkit-transform: rotateZ(-135deg);\n          transform: rotateZ(-135deg);\n}\n.arr .menu_line {\n  display: block;\n  width: 100%;\n  height: 2px;\n  background-color: #fff;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n}\n.arr .line1 {\n  -webkit-transform: rotateZ(45deg);\n          transform: rotateZ(45deg);\n}\n.arr .line3 {\n  -webkit-transform: rotateZ(-45deg);\n          transform: rotateZ(-45deg);\n  margin: 4px 0 0;\n}\n", ""]);
 
 	// exports
 
@@ -27948,7 +27948,7 @@
 	        var grid = this.refs.grid;
 	        this.msnry = new Masonry(grid, {
 	            itemSelector: '.note',
-	            columnWidth: 120,
+	            columnWidth: 100,
 	            gutter: 10,
 	            isFitWidth: true
 	        });
@@ -28041,8 +28041,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/autoprefixer-loader/index.js!./Note.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/autoprefixer-loader/index.js!./Note.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/autoprefixer-loader/index.js!./../../node_modules/less-loader/index.js!./Note.less", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/autoprefixer-loader/index.js!./../../node_modules/less-loader/index.js!./Note.less");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -28060,7 +28060,7 @@
 
 
 	// module
-	exports.push([module.id, ".note {\r\n    width: 200px;\r\n    height: auto;\r\n    float: left;\r\n    background-color: yellow;\r\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\r\n    border-radius: 2px;\r\n    padding: 10px;\r\n    margin-bottom: 10px;\r\n    -webkit-transition: box-shadow .3s;\r\n    transition: box-shadow .3s;\r\n    white-space: pre-wrap;\r\n    white-space: -moz-pre-wrap;\r\n    white-space: -pre-wrap;\r\n    white-space: -o-pre-wrap;\r\n    word-wrap: break-word;\r\n}\r\n\r\n.note:hover {\r\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n.delete-note {\r\n    position     : absolute;\r\n    top          : 5px;\r\n    right        : 5px;\r\n    display      : none;\r\n    color        : rgba(0, 0, 0, 0.6);\r\n    cursor       : pointer;\r\n    border-radius: 50%;\r\n    padding      : 1px 1px 0 1px;\r\n    background   : rgba(255, 255, 255, .5);\r\n    -webkit-transition: all 0.3s;\r\n    transition   : all 0.3s;\r\n}\r\n\r\n.delete-note:hover {\r\n    background: #fff;\r\n}\r\n\r\n.note:hover .delete-note {\r\n    display: block;\r\n}\r\n", ""]);
+	exports.push([module.id, ".note {\n  width: 300px;\n  height: auto;\n  float: left;\n  border: solid 1px #b4b4b4;\n  text-align: center;\n  padding: 10px;\n  margin-bottom: -1px;\n  -webkit-transition: box-shadow 0.3s;\n  transition: box-shadow 0.3s;\n  white-space: pre-wrap;\n  white-space: -moz-pre-wrap;\n  white-space: -pre-wrap;\n  white-space: -o-pre-wrap;\n  word-wrap: break-word;\n  -webkit-transition: all .3s;\n  transition: all .3s;\n}\n.note:hover {\n  -webkit-filter: brightness(95%);\n          filter: brightness(95%);\n}\n.delete-note {\n  position: absolute;\n  top: 5px;\n  right: 5px;\n  display: none;\n  color: rgba(0, 0, 0, 0.6);\n  cursor: pointer;\n  border-radius: 50%;\n  -webkit-transition: all 0.3s;\n  transition: all 0.3s;\n}\n.delete-note:hover {\n  color: #000000;\n}\n.note:hover .delete-note {\n  display: block;\n}\n", ""]);
 
 	// exports
 
@@ -28113,19 +28113,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-		value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var _react = __webpack_require__(1);
 
@@ -28133,40 +28121,19 @@
 
 	__webpack_require__(256);
 
-	var Search = (function (_Component) {
-		_inherits(Search, _Component);
+	var Search = _react2['default'].createClass({
+	    displayName: 'Search',
 
-		function Search() {
-			_classCallCheck(this, Search);
+	    render: function render() {
+	        return _react2['default'].createElement(
+	            'div',
+	            { className: 'search' },
+	            _react2['default'].createElement('input', { type: 'text', placeholder: 'Искайка', className: 'search-field', onChange: this.props.onSearchText })
+	        );
+	    }
+	});
 
-			_get(Object.getPrototypeOf(Search.prototype), 'constructor', this).apply(this, arguments);
-		}
-
-		_createClass(Search, [{
-			key: 'handleSearch',
-			value: function handleSearch(event) {
-				var searchQuery = event.target.value.toLowerCase();
-				var displayedContacts = CONTACTS.filter(function (el) {
-					var searchValue = el.name.toLowerCase();
-					return searchValue.indexOf(searchQuery) !== -1;
-				});
-
-				this.setState({
-					displayedContacts: displayedContacts
-				});
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2['default'].createElement('input', { type: 'text', placeholder: 'Искайка', className: 'search-field', onChange: this.handleSearch });
-			}
-		}]);
-
-		return Search;
-	})(_react.Component);
-
-	exports['default'] = Search;
-	module.exports = exports['default'];
+	module.exports = Search;
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\User\\Desktop\\#Расширения\\React\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Search.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
@@ -28205,7 +28172,7 @@
 
 
 	// module
-	exports.push([module.id, ".search-field {\n  width: 100%;\n  padding: 14px;\n  font-size: 16px;\n  border: 2px solid #ccc;\n}\n.search-field::-webkit-input-placeholder {\n  color: #ccc;\n}\n", ""]);
+	exports.push([module.id, ".search {\n  width: 100%;\n  max-width: 600px;\n  margin: auto;\n  padding-bottom: 20px;\n}\n.search .search-field {\n  width: 100%;\n  padding: 14px;\n  font-size: 16px;\n  border: 2px solid #ccc;\n}\n.search .search-field::-webkit-input-placeholder {\n  color: #ccc;\n}\n.search .search-field:focus {\n  outline: none !important;\n}\n", ""]);
 
 	// exports
 
@@ -28226,8 +28193,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/autoprefixer-loader/index.js!./NotesApp.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/autoprefixer-loader/index.js!./NotesApp.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/autoprefixer-loader/index.js!./../../node_modules/less-loader/index.js!./NotesApp.less", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/autoprefixer-loader/index.js!./../../node_modules/less-loader/index.js!./NotesApp.less");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -28245,7 +28212,7 @@
 
 
 	// module
-	exports.push([module.id, ".notes-app {\r\n    max-width : 960px;\r\n    width     : 100%;\r\n    margin    : auto;\r\n}\r\n\r\n.app-header {\r\n    text-align  : center;\r\n    font-weight : 500;\r\n    color       : grey;\r\n    text-shadow : 0px 2px 3px rgba(255,255,255,0.5);\r\n}\r\n", ""]);
+	exports.push([module.id, ".notes-app {\n  max-width: 645px;\n  width: 100%;\n  margin: 0 auto;\n}\n.app-header {\n  text-align: center;\n  font-weight: 500;\n  color: grey;\n  text-shadow: 0px 2px 3px rgba(255, 255, 255, 0.5);\n}\n", ""]);
 
 	// exports
 

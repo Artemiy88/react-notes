@@ -1,5 +1,5 @@
 import React from 'react';
-import './Note.css';
+import './Note.less';
 
 var Note = React.createClass({
     render: function() {
