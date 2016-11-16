@@ -8,8 +8,7 @@ var NotesGrid = React.createClass({
         this.msnry = new Masonry( grid, {
             itemSelector: '.note',
             columnWidth : 100,
-            gutter      : 10,
-            isFitWidth  : true
+            gutter      : 10
         });
     },
 
