@@ -15,6 +15,9 @@ export default class Menu extends Component {
     				<div className ='menu-item'>
     					<NavLink to='/edit' >Редактор</NavLink>
     				</div>
+    				<div className ='menu-item'>
+    					<NavLink to='/new' >Добавить</NavLink>
+    				</div>
                 </div>
                 {this.props.children}
             </div>

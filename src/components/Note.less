@@ -1,0 +1,41 @@
+.note {
+    width         : 300px;
+    height        : auto;
+    float         : left;
+    border        : solid 1px #b4b4b4;
+    text-align    : center;
+    padding       : 10px;
+    margin-bottom : -1px;
+    transition    : box-shadow .3s;
+    white-space   : pre-wrap;
+    white-space   : -moz-pre-wrap;
+    white-space   : -pre-wrap;
+    white-space   : -o-pre-wrap;
+    word-wrap       : break-word;
+    transition: all .3s;
+
+    &:hover {
+        filter: brightness(95%);
+    }
+}
+
+.delete-note {
+    position     : absolute;
+    top          : 5px;
+    right        : 5px;
+    display      : none;
+    color        : rgba(0, 0, 0, 0.6);
+    cursor       : pointer;
+    border-radius: 50%;
+//    padding      : 1px 1px 0 1px;
+//    background   : rgba(255, 255, 255, .5);
+    transition   : all 0.3s;
+
+    &:hover {
+        color        : rgba(0, 0, 0, 1);
+    }
+}
+
+.note:hover .delete-note {
+    display: block;
+}
